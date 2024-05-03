@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Refuge Restrooms</string>
+    <string name="original_webpage">https://www.refugerestrooms.org/</string>
+    <string name="github_repo_url">https://github.com/RefugeRestrooms/refugerestrooms</string>
+    <string name="patreon_url">https://patreon.com/refugerestrooms</string>
+    <string name="facebook_account_url">https://www.facebook.com/refugerestrooms</string>
+    <string name="twitter_account_url">https://twitter.com/refugerestrooms</string>
 </resources>
