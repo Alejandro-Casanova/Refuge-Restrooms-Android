@@ -5,4 +5,5 @@
     <string name="patreon_url">https://patreon.com/refugerestrooms</string>
     <string name="facebook_account_url">https://www.facebook.com/refugerestrooms</string>
     <string name="twitter_account_url">https://twitter.com/refugerestrooms</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
 </resources>

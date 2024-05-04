@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BusinessCardCompose()
+                    AboutCardCompose()
                 }
             }
         }
@@ -134,7 +134,7 @@ fun AboutCard(modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun BusinessCardCompose(){
+fun AboutCardCompose(){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
@@ -155,13 +155,13 @@ fun BusinessCardCompose(){
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun AboutCardPreview() {
     RefugeRestroomsTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            BusinessCardCompose()
+            AboutCardCompose()
         }
     }
 }

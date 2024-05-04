@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="restroom_name_1">Tierra Burrito</string>
+    <string name="restroom_name_2">Tierra Burrito 2</string>
+    <string name="restroom_name_3">Goikos</string>
+    <string name="restroom_name_4">Sala X</string>
+    <string name="restroom_address_1">Ramal María Soledad, 2 Puerta 048, Puerta 097, 70788, Mataró, Región de Murcia, Spain</string>
+    <string name="restroom_address_2">Jardines Berta s/n., Esc. 151, 32293, Puertollano, Castilla y León, Spain</string>
+    <string name="restroom_address_3">Ferrocarril Hugo, 35, Puerta 440, 85149, Ciudad Real, Baleares, Spain</string>
+    <string name="restroom_address_4">Aldea Esperanza Mascareñas s/n., Esc. 483, 89213, Santa Coloma de Gramanet, Canarias, Spain</string>
+    <string name="restroom_distance_1">1.54 millas / 2.40 kilómetros</string>
+    <string name="restroom_distance_2">2.54 millas / 2.46 kilómetros</string>
+    <string name="restroom_distance_3">0.74 millas / 2.28 kilómetros</string>
+    <string name="restroom_distance_4">1.47 millas / 1.48 kilómetros</string>
+    <bool name="restroom_unisex_1">true</bool>
+    <bool name="restroom_unisex_2">false</bool>
+    <bool name="restroom_unisex_3">true</bool>
+    <bool name="restroom_unisex_4">false</bool>
+    <bool name="restroom_accessible_1">true</bool>
+    <bool name="restroom_accessible_2">true</bool>
+    <bool name="restroom_accessible_3">false</bool>
+    <bool name="restroom_accessible_4">false</bool>
+</resources>
