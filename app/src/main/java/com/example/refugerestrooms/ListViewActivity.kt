@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -30,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.refugerestrooms.data.DummyDataSource
 import com.example.refugerestrooms.model.Restroom
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
@@ -41,11 +39,9 @@ class ListViewActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RefugeRestroomsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    RestroomListApp(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                RestroomListApp(
+                    modifier = Modifier
+                )
             }
         }
     }
@@ -65,7 +61,6 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        shape = RoundedCornerShape(10.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween,
@@ -76,19 +71,18 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(60.dp)
-                    .padding(start = 6.dp, top = 6.dp),
+                    .padding(start = 8.dp, top = 8.dp),
                 contentScale = ContentScale.Fit
             )
             Column(
                 modifier = Modifier
                     .weight(1.5f)
-                    .padding(start = 10.dp)
+                    .padding(start = 8.dp, bottom = 8.dp)
             ) {
                 Text(
                     text = stringResource(restroom.nameStringResourceId),
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontSize = 20.sp,
+                    modifier = Modifier.padding(bottom = 4.dp, top = 4.dp),
+                    style = MaterialTheme.typography.displayMedium,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
@@ -97,8 +91,7 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
                     maxLines = 2,
                     text = stringResource(restroom.addressStringResourceId),
                     modifier = Modifier,
-                    style = MaterialTheme.typography.labelSmall,
-                    fontSize = 14.sp
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
             Column(
@@ -111,8 +104,7 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
                     maxLines = 1,
                     text = stringResource(restroom.distanceStringResourceId),
                     modifier = Modifier,
-                    style = MaterialTheme.typography.labelSmall,
-                    fontSize = 14.sp
+                    style = MaterialTheme.typography.labelSmall
                 )
                 // Optional Icons
                 Row(
@@ -150,12 +142,17 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
 
 @Composable
 fun RestroomList(restroomsList: List<Restroom>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(restroomsList) { restroom ->
-            RestroomCard(
-                restroom = restroom,
-                modifier = Modifier.padding(8.dp)
-            )
+    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+        LazyColumn(
+            contentPadding = innerPadding,
+            modifier = modifier
+        ) {
+            items(restroomsList) { restroom ->
+                RestroomCard(
+                    restroom = restroom,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }
@@ -169,16 +166,19 @@ fun ListViewPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             RestroomListApp()
-//            RestroomCard(
-//                Restroom(
-//                    R.string.restroom_name_1,
-//                    R.string.restroom_address_1,
-//                    R.string.restroom_distance_1,
-//                    R.bool.restroom_unisex_1,
-//                    R.bool.restroom_accessible_1
-//                ),
-//                modifier = Modifier
-//            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ListViewPreviewDarkTheme() {
+    RefugeRestroomsTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            RestroomListApp()
         }
     }
 }
