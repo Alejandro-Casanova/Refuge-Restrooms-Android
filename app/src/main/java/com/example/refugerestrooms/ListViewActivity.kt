@@ -15,12 +15,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.booleanResource
@@ -45,6 +48,31 @@ class ListViewActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RefugeTopAppBar(modifier: Modifier = Modifier) {
+    CenterAlignedTopAppBar(
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+//                Image(
+//                    modifier = Modifier
+//                        .size(48.dp)
+//                        .padding(8.dp),
+//                    painter = painterResource(R.mipmap.ic_launcher_round),
+//                    contentDescription = null
+//                )
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.displayLarge
+                )
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -142,7 +170,12 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
 
 @Composable
 fun RestroomList(restroomsList: List<Restroom>, modifier: Modifier = Modifier) {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        topBar = {
+            RefugeTopAppBar()
+        },
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
         LazyColumn(
             contentPadding = innerPadding,
             modifier = modifier
