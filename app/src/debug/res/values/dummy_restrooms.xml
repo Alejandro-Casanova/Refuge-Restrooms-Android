@@ -20,4 +20,8 @@
     <bool name="restroom_accessible_2">true</bool>
     <bool name="restroom_accessible_3">false</bool>
     <bool name="restroom_accessible_4">false</bool>
+    <integer name="restroom_rating_1">80</integer>
+    <integer name="restroom_rating_2">65</integer>
+    <integer name="restroom_rating_3">0</integer>
+    <integer name="restroom_rating_4">45</integer>
 </resources>

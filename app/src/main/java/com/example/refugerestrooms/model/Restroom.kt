@@ -1,6 +1,7 @@
 package com.example.refugerestrooms.model
 
 import androidx.annotation.BoolRes
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 
 data class Restroom(
@@ -10,4 +11,6 @@ data class Restroom(
 
     @BoolRes val unisexFlagResourceId: Int,
     @BoolRes val accessibleFlagResourceId: Int,
+
+    @IntegerRes val ratingResourceId: Int,
 )

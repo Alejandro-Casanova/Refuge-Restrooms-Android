@@ -14,10 +14,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -25,10 +31,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.booleanResource
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -84,8 +94,157 @@ fun RestroomListApp(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
+private fun RestroomCardButton(
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+            contentDescription = stringResource(R.string.expand_button_content_description),
+            tint = MaterialTheme.colorScheme.secondary
+        )
+    }
+
+}
+
+@Composable
+private fun RestroomRatingBanner(
+    modifier: Modifier = Modifier,
+    ratingIntResourceId : Int? = R.integer.restroom_rating_1,
+) {
+    val rating : Int? = if(ratingIntResourceId == null) null else integerResource(ratingIntResourceId)
+    val message : String = when {
+        rating == null -> "No Rating"
+        else -> "${rating}% positive"
+    }
+    val color : Color = when{
+        rating == null -> colorResource(R.color.purple_500)
+        rating < 50 -> colorResource(R.color.red_rating)
+        rating < 80 -> colorResource(R.color.orange_rating)
+        else -> colorResource(R.color.green_rating)
+    }
     ElevatedCard(
+        colors = CardDefaults.cardColors(
+            containerColor = color,
+        ),
+        shape = RoundedCornerShape(12.dp),
+        //border = BorderStroke(1.dp, Color.Black),
+        modifier = modifier
+            //.size(width = 240.dp, height = 100.dp)
+    ) {
+        Text(
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            text = message,
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            modifier = Modifier
+                .padding(8.dp),
+            //style = MaterialTheme.typography.labelSmall
+        )
+    }
+}
+
+@Composable
+private fun RestroomCardMainBody(
+    restroom: Restroom,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(restroom.nameStringResourceId),
+            modifier = Modifier.padding(bottom = 4.dp, top = 4.dp),
+            style = MaterialTheme.typography.displayMedium,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+        )
+        Text(
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            text = stringResource(restroom.distanceStringResourceId),
+            modifier = Modifier,
+            style = MaterialTheme.typography.labelSmall
+        )
+        Text(
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+            text = stringResource(restroom.addressStringResourceId),
+            modifier = Modifier,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
+@Composable
+fun RestroomCardSecondaryBody(
+    restroom: Restroom,
+//    expanded: Boolean,
+//    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.End,
+        modifier = modifier
+    ) {
+
+        RestroomRatingBanner(
+            ratingIntResourceId = restroom.ratingResourceId
+        )
+        // Optional Icons
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier
+                //.fillMaxWidth()
+                .padding(8.dp)
+        ){
+            // Plot Unisex Icon when necessary
+            if(booleanResource(restroom.unisexFlagResourceId)){
+                Image(
+                    painter = painterResource(R.drawable.genderneutral),
+                    contentDescription = "Unisex / Gender Neutral",
+                    modifier = Modifier
+                        .size(30.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
+            // Plot Accessible Icon when necessary
+            if(booleanResource(restroom.accessibleFlagResourceId)){
+                Image(
+                    painter = painterResource(R.drawable.accessiblerestroom),
+                    contentDescription = "Accessible",
+                    modifier = Modifier
+                        .size(30.dp)
+                        .padding(2.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
+        }
+//        RestroomCardButton(
+//            expanded = expanded,
+//            onClick = onClick,
+//            modifier = Modifier.padding(0.dp)
+//        )
+    }
+}
+
+@Composable
+fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
+//    var expanded by remember { mutableStateOf(false) }
+//    val color by animateColorAsState(
+//        targetValue = if (expanded) MaterialTheme.colorScheme.tertiaryContainer
+//        else MaterialTheme.colorScheme.primaryContainer,
+//        label = "DogItem_change_color_animation",
+//    )
+    ElevatedCard(
+        //onClick = { /*...*/ },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
@@ -94,76 +253,28 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
         Row(horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(R.drawable.toiletlogo),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(60.dp)
-                    .padding(start = 8.dp, top = 8.dp),
-                contentScale = ContentScale.Fit
-            )
-            Column(
+//            Image(
+//                painter = painterResource(R.drawable.toiletlogo),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .size(60.dp)
+//                    .padding(start = 8.dp, top = 8.dp),
+//                contentScale = ContentScale.Fit
+//            )
+            RestroomCardMainBody(
+                restroom = restroom,
                 modifier = Modifier
                     .weight(1.5f)
-                    .padding(start = 8.dp, bottom = 8.dp)
-            ) {
-                Text(
-                    text = stringResource(restroom.nameStringResourceId),
-                    modifier = Modifier.padding(bottom = 4.dp, top = 4.dp),
-                    style = MaterialTheme.typography.displayMedium,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                )
-                Text(
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 2,
-                    text = stringResource(restroom.addressStringResourceId),
-                    modifier = Modifier,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-            Column(
+                    .padding(start = 16.dp, bottom = 8.dp)
+            )
+            RestroomCardSecondaryBody(
+                restroom = restroom,
+//                expanded = expanded,
+//                onClick = { expanded = !expanded },
                 modifier = Modifier
-                    .weight(1.0f)
+                    //.weight(1.0f)
                     .padding(6.dp)
-            ) {
-                Text(
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    text = stringResource(restroom.distanceStringResourceId),
-                    modifier = Modifier,
-                    style = MaterialTheme.typography.labelSmall
-                )
-                // Optional Icons
-                Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(6.dp)
-                ){
-                    // Plot Unisex Icon when necessary
-                    if(booleanResource(restroom.unisexFlagResourceId)){
-                        Image(
-                            painter = painterResource(R.drawable.genderneutral),
-                            contentDescription = "Unisex / Gender Neutral",
-                            modifier = Modifier
-                                .size(30.dp),
-                            contentScale = ContentScale.Fit
-                        )
-                    }
-                    // Plot Accessible Icon when necessary
-                    if(booleanResource(restroom.accessibleFlagResourceId)){
-                        Image(
-                            painter = painterResource(R.drawable.accessiblerestroom),
-                            contentDescription = "Accessible",
-                            modifier = Modifier
-                                .size(30.dp)
-                                .padding(2.dp),
-                            contentScale = ContentScale.Fit
-                        )
-                    }
-                }
-            }
+            )
         }
     }
 }

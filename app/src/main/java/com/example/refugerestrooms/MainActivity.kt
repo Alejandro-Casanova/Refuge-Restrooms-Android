@@ -139,16 +139,16 @@ fun AboutCardCompose(){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {
-        Spacer(modifier = Modifier.weight(.2f))
+        Spacer(modifier = Modifier.weight(1f))
         TitleCover(
             title = "Refuge Restrooms",
             subtitle = "An Open Source Initiative",
             imagePainter = painterResource(R.drawable.logo_lg),
-            modifier = Modifier.weight(.5f)
+            modifier = Modifier
         )
-        Spacer(modifier = Modifier.weight(.2f))
+        Spacer(modifier = Modifier.weight(1f))
         AboutCard(
-            modifier = Modifier.weight(.5f)
+            modifier = Modifier
         )
     }
 }

@@ -10,84 +10,96 @@ class DummyDataSource {
                 R.string.restroom_address_1,
                 R.string.restroom_distance_1,
                 R.bool.restroom_unisex_1,
-                R.bool.restroom_accessible_1
+                R.bool.restroom_accessible_1,
+                R.integer.restroom_rating_1,
             ),
             Restroom(
                 R.string.restroom_name_2,
                 R.string.restroom_address_2,
                 R.string.restroom_distance_2,
                 R.bool.restroom_unisex_2,
-                R.bool.restroom_accessible_2
+                R.bool.restroom_accessible_2,
+                R.integer.restroom_rating_2,
             ),
             Restroom(
                 R.string.restroom_name_3,
                 R.string.restroom_address_3,
                 R.string.restroom_distance_3,
                 R.bool.restroom_unisex_3,
-                R.bool.restroom_accessible_3
+                R.bool.restroom_accessible_3,
+                R.integer.restroom_rating_3,
             ),
             Restroom(
                 R.string.restroom_name_4,
                 R.string.restroom_address_4,
                 R.string.restroom_distance_4,
                 R.bool.restroom_unisex_4,
-                R.bool.restroom_accessible_4
+                R.bool.restroom_accessible_4,
+                R.integer.restroom_rating_4,
             ),
             Restroom(
                 R.string.restroom_name_1,
                 R.string.restroom_address_1,
                 R.string.restroom_distance_1,
                 R.bool.restroom_unisex_1,
-                R.bool.restroom_accessible_1
+                R.bool.restroom_accessible_1,
+                R.integer.restroom_rating_1,
             ),
             Restroom(
                 R.string.restroom_name_2,
                 R.string.restroom_address_2,
                 R.string.restroom_distance_2,
                 R.bool.restroom_unisex_2,
-                R.bool.restroom_accessible_2
+                R.bool.restroom_accessible_2,
+                R.integer.restroom_rating_2,
             ),
             Restroom(
                 R.string.restroom_name_3,
                 R.string.restroom_address_3,
                 R.string.restroom_distance_3,
                 R.bool.restroom_unisex_3,
-                R.bool.restroom_accessible_3
+                R.bool.restroom_accessible_3,
+                R.integer.restroom_rating_3,
             ),
             Restroom(
                 R.string.restroom_name_4,
                 R.string.restroom_address_4,
                 R.string.restroom_distance_4,
                 R.bool.restroom_unisex_4,
-                R.bool.restroom_accessible_4
+                R.bool.restroom_accessible_4,
+                R.integer.restroom_rating_4,
             ),
             Restroom(
                 R.string.restroom_name_1,
                 R.string.restroom_address_1,
                 R.string.restroom_distance_1,
                 R.bool.restroom_unisex_1,
-                R.bool.restroom_accessible_1
+                R.bool.restroom_accessible_1,
+                R.integer.restroom_rating_1,
             ),
             Restroom(
                 R.string.restroom_name_2,
                 R.string.restroom_address_2,
                 R.string.restroom_distance_2,
                 R.bool.restroom_unisex_2,
-                R.bool.restroom_accessible_2
+                R.bool.restroom_accessible_2,
+                R.integer.restroom_rating_2,
             ),
             Restroom(
                 R.string.restroom_name_3,
                 R.string.restroom_address_3,
                 R.string.restroom_distance_3,
                 R.bool.restroom_unisex_3,
-                R.bool.restroom_accessible_3
+                R.bool.restroom_accessible_3,
+                R.integer.restroom_rating_3,
             ),
             Restroom(
                 R.string.restroom_name_4,
                 R.string.restroom_address_4,
                 R.string.restroom_distance_4,
                 R.bool.restroom_unisex_4,
-                R.bool.restroom_accessible_4
+                R.bool.restroom_accessible_4,
+                R.integer.restroom_rating_4,
             )
         )
     }
