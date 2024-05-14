@@ -4,7 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,12 +37,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.booleanResource
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -153,7 +166,9 @@ private fun RestroomRatingBanner(
 @Composable
 private fun RestroomCardMainBody(
     restroom: Restroom,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    distanceNumLinesToDisplay: Int = 1,
+    addressNumLinesToDisplay: Int = 2,
 ) {
     Column(
         modifier = modifier
@@ -167,14 +182,14 @@ private fun RestroomCardMainBody(
         )
         Text(
             overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
+            maxLines = distanceNumLinesToDisplay,
             text = stringResource(restroom.distanceStringResourceId),
             modifier = Modifier,
             style = MaterialTheme.typography.labelSmall
         )
         Text(
             overflow = TextOverflow.Ellipsis,
-            maxLines = 2,
+            maxLines = addressNumLinesToDisplay,
             text = stringResource(restroom.addressStringResourceId),
             modifier = Modifier,
             style = MaterialTheme.typography.bodyLarge
@@ -236,45 +251,90 @@ fun RestroomCardSecondaryBody(
 }
 
 @Composable
+fun RestroomCardExtraInfo(
+    //@StringRes dogHobby: Int,
+    modifier: Modifier = Modifier
+){
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = "Extra Info",
+            style = MaterialTheme.typography.labelSmall
+        )
+        Text(
+            text = "---",
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
-//    var expanded by remember { mutableStateOf(false) }
-//    val color by animateColorAsState(
-//        targetValue = if (expanded) MaterialTheme.colorScheme.tertiaryContainer
-//        else MaterialTheme.colorScheme.primaryContainer,
-//        label = "DogItem_change_color_animation",
-//    )
+    var expanded by remember { mutableStateOf(false) }
+
+    val textNumLines =
+        if (expanded) Int.MAX_VALUE
+        else 1
+
     ElevatedCard(
-        //onClick = { /*...*/ },
+        onClick = { expanded = !expanded },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
-        Row(horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioNoBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+                //.background(color = color)
         ) {
-//            Image(
-//                painter = painterResource(R.drawable.toiletlogo),
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .size(60.dp)
-//                    .padding(start = 8.dp, top = 8.dp),
-//                contentScale = ContentScale.Fit
-//            )
-            RestroomCardMainBody(
-                restroom = restroom,
-                modifier = Modifier
-                    .weight(1.5f)
-                    .padding(start = 16.dp, bottom = 8.dp)
-            )
-            RestroomCardSecondaryBody(
-                restroom = restroom,
-//                expanded = expanded,
-//                onClick = { expanded = !expanded },
-                modifier = Modifier
-                    //.weight(1.0f)
-                    .padding(6.dp)
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                //            Image(
+                //                painter = painterResource(R.drawable.toiletlogo),
+                //                contentDescription = null,
+                //                modifier = Modifier
+                //                    .size(60.dp)
+                //                    .padding(start = 8.dp, top = 8.dp),
+                //                contentScale = ContentScale.Fit
+                //            )
+                RestroomCardMainBody(
+                    restroom = restroom,
+                    modifier = Modifier
+                        .weight(1.5f)
+                        .padding(start = 16.dp, bottom = 8.dp),
+                    distanceNumLinesToDisplay = textNumLines,
+                    addressNumLinesToDisplay = textNumLines
+                )
+                RestroomCardSecondaryBody(
+                    restroom = restroom,
+                    //                expanded = expanded,
+                    //                onClick = { expanded = !expanded },
+                    modifier = Modifier
+                        //.weight(1.0f)
+                        .padding(6.dp)
+                )
+            }
+            if(expanded) {
+                RestroomCardExtraInfo(
+                    //dog.hobbies,
+                    modifier = Modifier.padding(
+                        start = dimensionResource(R.dimen.padding_medium),
+                        top = dimensionResource(R.dimen.padding_small),
+                        end = dimensionResource(R.dimen.padding_medium),
+                        bottom = dimensionResource(R.dimen.padding_medium)
+                    )
+                )
+            }
         }
     }
 }
@@ -294,7 +354,9 @@ fun RestroomList(restroomsList: List<Restroom>, modifier: Modifier = Modifier) {
             items(restroomsList) { restroom ->
                 RestroomCard(
                     restroom = restroom,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
                 )
             }
         }
