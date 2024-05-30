@@ -1,6 +1,7 @@
 package com.example.refugerestrooms.ui
 
 import androidx.lifecycle.ViewModel
+import com.example.refugerestrooms.data.AppUiState
 import com.example.refugerestrooms.data.DummyDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package com.example.refugerestrooms.ui
+package com.example.refugerestrooms.data
 
 import com.example.refugerestrooms.model.Restroom
 
