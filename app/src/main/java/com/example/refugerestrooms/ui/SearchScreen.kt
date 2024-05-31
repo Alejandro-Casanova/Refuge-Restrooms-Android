@@ -1,4 +1,4 @@
-package com.example.refugerestrooms
+package com.example.refugerestrooms.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -39,6 +39,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.refugerestrooms.R
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 class SearchViewActivity  : ComponentActivity() {
@@ -51,7 +52,7 @@ class SearchViewActivity  : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SearchViewLayout()
+                    SearchScreen()
                 }
             }
         }
@@ -86,7 +87,7 @@ fun EditSearchField(
 }
 
 @Composable
-fun SearchViewLayout(modifier: Modifier = Modifier) {
+fun SearchScreen(modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
     Column(
         modifier = modifier
@@ -106,8 +107,7 @@ fun SearchViewLayout(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = stringResource(R.string.find_refuge_search_query),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.displayMedium,
                 modifier = Modifier
                     .padding(24.dp)
                     .align(alignment = Alignment.CenterHorizontally)
@@ -115,7 +115,7 @@ fun SearchViewLayout(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(100.dp))
         EditSearchField(
-            label = R.string.type_your_query,
+            label = R.string.type_in_your_query,
             leadingIcon = R.drawable.search_icon,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,
@@ -132,13 +132,26 @@ fun SearchViewLayout(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun SearchViewPreview() {
+fun SearchScreenPreview() {
     RefugeRestroomsTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            SearchViewLayout()
+            SearchScreen()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SearchScreenPreviewDark() {
+    RefugeRestroomsTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            SearchScreen()
         }
     }
 }

@@ -7,7 +7,8 @@
     <string name="twitter_account_url">https://twitter.com/refugerestrooms</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="find_refuge_search_query">Find Refuge</string>
-    <string name="type_your_query">Type your query</string>
+    <string name="type_in_your_query">Type in your query</string>
     <string name="title_activity_search_view">SearchViewActivity</string>
     <string name="expand_button_content_description">See more or less information about this restroom.</string>
+    <string name="title_activity_about_screen">AboutScreen</string>
 </resources>

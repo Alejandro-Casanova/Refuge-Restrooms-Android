@@ -1,4 +1,4 @@
-package com.example.refugerestrooms
+package com.example.refugerestrooms.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,8 +48,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.refugerestrooms.R
 import com.example.refugerestrooms.model.Restroom
-import com.example.refugerestrooms.ui.AppViewModel
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 class ListViewActivity : ComponentActivity() {
@@ -57,7 +58,7 @@ class ListViewActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RefugeRestroomsTheme {
-                RestroomListApp(
+                RestroomListScreen(
                     modifier = Modifier
                 )
             }
@@ -91,14 +92,14 @@ fun RefugeTopAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RestroomListApp(
+fun RestroomListScreen(
     modifier: Modifier = Modifier,
     appViewModel: AppViewModel = viewModel(),
 ) {
-    val gameUiState by appViewModel.uiState.collectAsState()
+    val appUiState by appViewModel.uiState.collectAsState()
 
     RestroomList(
-        restroomsList = gameUiState.restroomsList,
+        restroomsList = appUiState.restroomsList,
         modifier = modifier
     )
 }
@@ -339,16 +340,17 @@ fun RestroomCard(restroom: Restroom, modifier: Modifier = Modifier) {
 @Composable
 fun RestroomList(
     restroomsList: List<Restroom>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
-    Scaffold(
-        topBar = {
-            RefugeTopAppBar()
-        },
-        modifier = Modifier.fillMaxSize()
-    ) { innerPadding ->
+//    Scaffold(
+//        topBar = {
+//            RefugeTopAppBar()
+//        },
+//        modifier = Modifier.fillMaxSize()
+//    ) { innerPadding ->
         LazyColumn(
-            contentPadding = innerPadding,
+            contentPadding = contentPadding,
             modifier = modifier
         ) {
             items(restroomsList) { restroom ->
@@ -359,7 +361,7 @@ fun RestroomList(
                         .fillMaxWidth()
                 )
             }
-        }
+        //}
     }
 }
 
@@ -371,7 +373,7 @@ fun ListViewPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestroomListApp()
+            RestroomListScreen()
         }
     }
 }
@@ -384,7 +386,7 @@ fun ListViewPreviewDarkTheme() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestroomListApp()
+            RestroomListScreen()
         }
     }
 }
