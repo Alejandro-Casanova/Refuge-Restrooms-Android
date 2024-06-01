@@ -348,7 +348,7 @@ fun RestroomList(
 //            RefugeTopAppBar()
 //        },
 //        modifier = Modifier.fillMaxSize()
-//    ) { innerPadding ->
+//    ) { contentPadding ->
         LazyColumn(
             contentPadding = contentPadding,
             modifier = modifier
@@ -361,8 +361,8 @@ fun RestroomList(
                         .fillMaxWidth()
                 )
             }
-        //}
-    }
+        }
+    //}
 }
 
 @Preview(showBackground = true)

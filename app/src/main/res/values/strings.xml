@@ -11,4 +11,10 @@
     <string name="title_activity_search_view">SearchViewActivity</string>
     <string name="expand_button_content_description">See more or less information about this restroom.</string>
     <string name="title_activity_about_screen">AboutScreen</string>
+    <string name="home">Home</string>
+    <string name="about">About</string>
+    <string name="search">Search</string>
+    <string name="list_view">List View</string>
+    <string name="map_view">Map View</string>
+    <string name="settings">Settings</string>
 </resources>
