@@ -2,6 +2,7 @@ package com.example.refugerestrooms.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -30,23 +33,27 @@ import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 @Composable
 fun AboutScreen(modifier: Modifier = Modifier) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Bottom,
-        modifier = modifier
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-        TitleCover(
-            title = "Refuge Restrooms",
-            subtitle = "An Open Source Initiative",
-            imagePainter = painterResource(R.drawable.logo_lg),
+    Box(modifier = modifier){
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
             modifier = Modifier
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        AboutCard(
-            modifier = Modifier
-        )
-        Spacer(modifier = Modifier.weight(0.10f))
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            TitleCover(
+                title = "Refuge Restrooms",
+                subtitle = "An Open Source Initiative",
+                imagePainter = painterResource(R.drawable.logo_lg),
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            AboutCard(
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.weight(0.10f))
+        }
     }
 }
 

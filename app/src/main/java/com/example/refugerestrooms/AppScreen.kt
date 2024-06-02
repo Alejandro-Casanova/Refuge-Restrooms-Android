@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -110,6 +112,9 @@ fun RefugeRestroomsApp(
     }
 
     Scaffold(
+        modifier = Modifier,
+            //.statusBarsPadding(),
+            //.safeDrawingPadding(),
         topBar = {
             topBar()
         },
