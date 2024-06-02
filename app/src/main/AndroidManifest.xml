@@ -18,12 +18,12 @@
             android:label="@string/title_activity_about_screen"
             android:theme="@style/Theme.RefugeRestrooms" />
         <activity
-            android:name=".ui.ListViewActivity"
+            android:name=".ui.screens.ListViewActivity"
             android:exported="true"
             android:label="@string/title_activity_list_view"
             android:theme="@style/Theme.RefugeRestrooms" />
         <activity
-            android:name=".ui.SearchViewActivity"
+            android:name=".ui.screens.SearchViewActivity"
             android:exported="true"
             android:label="@string/title_activity_search_view"
             android:theme="@style/Theme.RefugeRestrooms" />

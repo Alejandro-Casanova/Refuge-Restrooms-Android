@@ -1,4 +1,4 @@
-package com.example.refugerestrooms.ui
+package com.example.refugerestrooms.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -89,44 +89,48 @@ fun EditSearchField(
 @Composable
 fun SearchScreen(modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
-    Column(
-        modifier = modifier
-            .statusBarsPadding()
-            .padding(horizontal = 40.dp)
-            .safeDrawingPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        ElevatedCard(
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 4.dp
-            ),
-            shape = RoundedCornerShape(10.dp),
-            modifier = modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(R.string.find_refuge_search_query),
-                style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier
-                    .padding(24.dp)
-                    .align(alignment = Alignment.CenterHorizontally)
-            )
-        }
-        Spacer(modifier = Modifier.height(100.dp))
-        EditSearchField(
-            label = R.string.type_in_your_query,
-            leadingIcon = R.drawable.search_icon,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
-            ),
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
+    Box(modifier = modifier) {
+        Column(
             modifier = Modifier
-                .padding(bottom = 32.dp)
-                .fillMaxWidth()
-        )
+            //            .statusBarsPadding()
+                        .padding(horizontal = 40.dp),
+            //            .safeDrawingPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            Spacer(modifier = Modifier.weight(1.0f))
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 4.dp
+                ),
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.find_refuge_search_query),
+                    style = MaterialTheme.typography.displayMedium,
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .align(alignment = Alignment.CenterHorizontally)
+                )
+            }
+            Spacer(modifier = Modifier.weight(0.5f))
+            EditSearchField(
+                label = R.string.type_in_your_query,
+                leadingIcon = R.drawable.search_icon,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Search
+                ),
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                modifier = Modifier
+                    .padding(bottom = 32.dp)
+                    .fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.weight(1f))
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.refugerestrooms.ui
+package com.example.refugerestrooms.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,7 +24,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.refugerestrooms.R
 import com.example.refugerestrooms.model.Restroom
+import com.example.refugerestrooms.ui.AppViewModel
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 class ListViewActivity : ComponentActivity() {
@@ -95,12 +95,14 @@ fun RefugeTopAppBar(modifier: Modifier = Modifier) {
 fun RestroomListScreen(
     modifier: Modifier = Modifier,
     appViewModel: AppViewModel = viewModel(),
+    lazyListContentPadding : PaddingValues = PaddingValues(0.dp)
 ) {
     val appUiState by appViewModel.uiState.collectAsState()
 
     RestroomList(
         restroomsList = appUiState.restroomsList,
-        modifier = modifier
+        modifier = modifier,
+        contentPadding = lazyListContentPadding
     )
 }
 

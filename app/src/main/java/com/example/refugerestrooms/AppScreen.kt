@@ -1,7 +1,7 @@
 package com.example.refugerestrooms
 
 import android.util.Log
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -19,12 +19,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.refugerestrooms.data.Screens
 import com.example.refugerestrooms.ui.AppViewModel
@@ -32,9 +32,11 @@ import com.example.refugerestrooms.ui.navigation.BackPressHandler
 import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer
 import com.example.refugerestrooms.ui.navigation.TopBar
+import com.example.refugerestrooms.ui.screens.AboutScreen
+import com.example.refugerestrooms.ui.screens.RestroomListScreen
+import com.example.refugerestrooms.ui.screens.SearchScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 @Composable
 fun RefugeRestroomsApp(
@@ -133,9 +135,7 @@ fun RefugeRestroomsApp(
         NavigationHost(
             navController = navController,
             viewModel = appViewModel,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            scaffoldInnerPadding = innerPadding
         )
     }
 
@@ -145,7 +145,8 @@ fun RefugeRestroomsApp(
 fun NavigationHost(
     navController: NavController,
     viewModel: AppViewModel,
-    modifier : Modifier = Modifier
+    //modifier : Modifier = Modifier,
+    scaffoldInnerPadding : PaddingValues = PaddingValues(0.dp)
 ) {
     NavHost(
         navController = navController as NavHostController,
@@ -153,27 +154,43 @@ fun NavigationHost(
     ) {
         composable(Screens.DrawerScreens.Home.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Home)
-            Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
         composable(Screens.DrawerScreens.Settings.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Settings)
-            Text(text="SETTINGS TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            Text(text="SETTINGS TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
+        // ABOUT SCREEN
         composable(Screens.DrawerScreens.About.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.About)
-            Text(text="ABOUT TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            //Text(text="ABOUT TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            AboutScreen(
+                modifier = Modifier,//.fillMaxSize(),
+            )
         }
+        // SEARCH SCREEN
         composable(Screens.HomeScreens.Search.route) {
             viewModel.setCurrentScreen(Screens.HomeScreens.Search)
-            Text(text="SEARCH TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            //Text(text="SEARCH TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            SearchScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding)
+            )
         }
+        // RESTROOM LIST SCREEN
         composable(Screens.HomeScreens.List.route) {
             viewModel.setCurrentScreen(Screens.HomeScreens.List)
-            Text(text="LIST TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            //Text(text="LIST TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            RestroomListScreen(
+                modifier = Modifier.fillMaxSize(),
+                appViewModel = viewModel,
+                lazyListContentPadding = scaffoldInnerPadding
+            )
         }
         composable(Screens.HomeScreens.Map.route) {
             viewModel.setCurrentScreen(Screens.HomeScreens.Map)
-            Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = modifier)
+            Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
     }
 }
