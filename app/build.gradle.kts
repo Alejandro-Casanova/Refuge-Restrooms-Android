@@ -78,6 +78,9 @@ dependencies {
     // Google play services
     implementation(libs.play.services.location)
 
+    // Permissions
+    implementation(libs.accompanist.permissions)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

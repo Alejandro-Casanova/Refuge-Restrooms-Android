@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -114,13 +115,13 @@ fun SearchScreen(modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = stringResource(R.string.find_refuge_search_query),
-                    style = MaterialTheme.typography.displayMedium,
+                    style = MaterialTheme.typography.displayLarge,
                     modifier = Modifier
                         .padding(24.dp)
                         .align(alignment = Alignment.CenterHorizontally)
                 )
             }
-            Spacer(modifier = Modifier.weight(0.5f))
+            Spacer(modifier = Modifier.weight(0.3f))
             EditSearchField(
                 label = R.string.type_in_your_query,
                 leadingIcon = R.drawable.search_icon,
@@ -131,10 +132,23 @@ fun SearchScreen(modifier: Modifier = Modifier) {
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 modifier = Modifier
-                    .padding(bottom = 32.dp)
+                    //.padding(bottom = 32.dp)
                     .fillMaxWidth()
             )
+            Text(
+                text = "or",
+                modifier = Modifier.padding(16.dp),
+                style = MaterialTheme.typography.displayMedium
+            )
+            //Spacer(modifier = Modifier.weight(0.10f))
+            Button(
+                onClick = {  },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Search near your location")
+            }
             Spacer(modifier = Modifier.weight(1f))
+
         }
     }
 }

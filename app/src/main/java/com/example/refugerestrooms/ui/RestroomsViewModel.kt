@@ -1,5 +1,6 @@
 package com.example.refugerestrooms.ui
 
+import android.location.Location
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,6 +12,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.refugerestrooms.RefugeRestroomsApplication
 import com.example.refugerestrooms.data.DummyDataSource
+import com.example.refugerestrooms.data.LocationTracker
 import com.example.refugerestrooms.data.RestroomsRepository
 import com.example.refugerestrooms.model.Restroom
 import com.example.refugerestrooms.ui.screens.Screens
@@ -27,9 +29,36 @@ sealed interface ApiRequestState {
     data object Error : ApiRequestState
     data object Loading : ApiRequestState
 }
-class RestroomsViewModel(private val restroomsRepository: RestroomsRepository) : ViewModel() {
+
+sealed interface LocationRequestState {
+    data object Success : LocationRequestState
+    data object Error : LocationRequestState
+    data object Loading : LocationRequestState
+}
+
+class RestroomsViewModel(
+    private val restroomsRepository: RestroomsRepository,
+    private val locationTracker: LocationTracker,
+) : ViewModel() {
+
     private val _uiState = MutableStateFlow(AppUiDataState())
     val uiState: StateFlow<AppUiDataState> = _uiState.asStateFlow()
+
+    var currentLocation by mutableStateOf<Location?>(null)
+    var locationRequestState: LocationRequestState by mutableStateOf(LocationRequestState.Loading)
+        private set
+
+    fun getCurrentLocation() {
+        viewModelScope.launch {
+            locationRequestState = LocationRequestState.Loading
+            currentLocation = locationTracker.getCurrentLocation()
+            locationRequestState = if(currentLocation != null) {
+                LocationRequestState.Success
+            }else{
+                LocationRequestState.Error
+            }
+        }
+    }
 
     /** The mutable State that stores the status of the most recent request */
     var apiRequestState: ApiRequestState by mutableStateOf(ApiRequestState.Loading)
@@ -84,7 +113,11 @@ class RestroomsViewModel(private val restroomsRepository: RestroomsRepository) :
             initializer {
                 val application = (this[APPLICATION_KEY] as RefugeRestroomsApplication)
                 val restroomsRepository = application.container.restroomsRepository
-                RestroomsViewModel(restroomsRepository = restroomsRepository)
+                val locationTracker = application.container.locationTracker
+                RestroomsViewModel(
+                    restroomsRepository = restroomsRepository,
+                    locationTracker = locationTracker
+                )
             }
         }
     }

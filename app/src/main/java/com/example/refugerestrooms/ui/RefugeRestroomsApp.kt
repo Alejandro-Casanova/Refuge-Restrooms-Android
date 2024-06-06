@@ -32,6 +32,7 @@ import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer
 import com.example.refugerestrooms.ui.navigation.TopBar
 import com.example.refugerestrooms.ui.screens.AboutScreen
+import com.example.refugerestrooms.ui.screens.LocationScreen
 import com.example.refugerestrooms.ui.screens.RestroomListScreen
 import com.example.refugerestrooms.ui.screens.SearchScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
@@ -156,7 +157,12 @@ fun NavigationHost(
     ) {
         composable(Screens.DrawerScreens.Home.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Home)
-            Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            LocationScreen(
+                restroomsViewModel = viewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding))
+            //Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
         composable(Screens.DrawerScreens.Settings.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Settings)
