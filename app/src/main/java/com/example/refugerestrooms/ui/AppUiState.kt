@@ -1,9 +1,7 @@
-package com.example.refugerestrooms.data
+package com.example.refugerestrooms.ui
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import com.example.refugerestrooms.R
 import com.example.refugerestrooms.model.Restroom
+import com.example.refugerestrooms.ui.screens.Screens
 
 data class AppUiDataState (
     val restroomsList : List<Restroom> = listOf(),

@@ -1,11 +1,9 @@
-package com.example.refugerestrooms
+package com.example.refugerestrooms.ui
 
 import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -28,8 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.refugerestrooms.data.Screens
-import com.example.refugerestrooms.ui.AppViewModel
+import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.navigation.BackPressHandler
 import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer

@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.refugerestrooms.data.Screens
-import com.example.refugerestrooms.data.screensFromDrawer
+import com.example.refugerestrooms.ui.screens.Screens
+import com.example.refugerestrooms.ui.screens.screensFromDrawer
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 @Composable

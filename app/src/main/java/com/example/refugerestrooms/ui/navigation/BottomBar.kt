@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -21,14 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.refugerestrooms.data.Screens
-import com.example.refugerestrooms.data.screensInHomeFromBottomNav
+import com.example.refugerestrooms.ui.screens.Screens
+import com.example.refugerestrooms.ui.screens.screensInHomeFromBottomNav
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 
 @Composable
 fun BottomBar(
     modifier: Modifier = Modifier,
-    onNextScreenClicked: (Screens) -> Unit ,
+    onNextScreenClicked: (Screens) -> Unit,
 ) {
     var currentRoute by rememberSaveable { mutableStateOf(Screens.HomeScreens.Search.route) }
 
