@@ -39,13 +39,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RefugeRestroomsApp(
-    appViewModel: AppViewModel = viewModel(),
+    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
 ) {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
-    val uiState by appViewModel.uiState.collectAsState()
+    val uiState by restroomsViewModel.uiState.collectAsState()
     val currentScreen = uiState.currentScreen
 
     if (scaffoldState.drawerState.isOpen) {
@@ -136,7 +136,7 @@ fun RefugeRestroomsApp(
     ) { innerPadding ->
         NavigationHost(
             navController = navController,
-            viewModel = appViewModel,
+            viewModel = restroomsViewModel,
             scaffoldInnerPadding = innerPadding
         )
     }
@@ -146,7 +146,7 @@ fun RefugeRestroomsApp(
 @Composable
 fun NavigationHost(
     navController: NavController,
-    viewModel: AppViewModel,
+    viewModel: RestroomsViewModel,
     //modifier : Modifier = Modifier,
     scaffoldInnerPadding : PaddingValues = PaddingValues(0.dp)
 ) {
@@ -186,7 +186,7 @@ fun NavigationHost(
             //Text(text="LIST TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
             RestroomListScreen(
                 modifier = Modifier.fillMaxSize(),
-                appViewModel = viewModel,
+                restroomsViewModel = viewModel,
                 lazyListContentPadding = scaffoldInnerPadding
             )
         }
