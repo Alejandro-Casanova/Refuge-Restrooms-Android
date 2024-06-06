@@ -13,7 +13,7 @@ interface AppContainer{
 class DefaultAppContainer : AppContainer {
 
     private val baseUrl =
-        "https://www.refugerestrooms.org/api/v1/"
+        "https://www.refugerestrooms.org/api/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
@@ -23,6 +23,7 @@ class DefaultAppContainer : AppContainer {
     private val retrofitService: RestroomsApiService by lazy {
         retrofit.create(RestroomsApiService::class.java)
     }
+
     override val restroomsRepository: RestroomsRepository by lazy {
         NetworkRestroomsRepository(retrofitService)
     }
