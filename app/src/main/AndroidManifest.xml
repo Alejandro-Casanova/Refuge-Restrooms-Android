@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,11 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RefugeRestrooms"
         tools:targetApi="31" >
-        <activity
-            android:name=".ui.AboutScreen"
-            android:exported="false"
-            android:label="@string/title_activity_about_screen"
-            android:theme="@style/Theme.RefugeRestrooms" />
         <activity
             android:name=".ui.screens.ListViewActivity"
             android:exported="true"
@@ -30,7 +27,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.RefugeRestrooms" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

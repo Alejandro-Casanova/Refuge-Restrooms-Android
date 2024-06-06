@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 android {
@@ -68,8 +69,11 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit)
-    // Retrofit with Scalar Converter
-    implementation(libs.converter.scalars)
+    // Retrofit with Kotlin serialization Converter
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.okhttp)
+    // Kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
 
