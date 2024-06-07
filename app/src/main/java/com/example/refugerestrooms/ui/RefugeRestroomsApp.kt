@@ -157,12 +157,12 @@ fun NavigationHost(
     ) {
         composable(Screens.DrawerScreens.Home.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Home)
-            LocationScreen(
-                restroomsViewModel = viewModel,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(scaffoldInnerPadding))
-            //Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+//            LocationScreen(
+//                restroomsViewModel = viewModel,
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(scaffoldInnerPadding))
+            Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
         composable(Screens.DrawerScreens.Settings.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Settings)
@@ -181,6 +181,12 @@ fun NavigationHost(
             viewModel.setCurrentScreen(Screens.HomeScreens.Search)
             //Text(text="SEARCH TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
             SearchScreen(
+                restroomsViewModel = viewModel,
+                onGetCurrentLocationSuccess = {
+                    navController.navigate(Screens.HomeScreens.List.route) {
+                        launchSingleTop = true
+                    }
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldInnerPadding)

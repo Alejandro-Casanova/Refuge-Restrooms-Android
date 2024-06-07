@@ -80,10 +80,10 @@ class DefaultLocationTracker(
         }
 
         // Request fetch new location
-        fusedLocationProviderClient.getCurrentLocation(
-            Priority.PRIORITY_BALANCED_POWER_ACCURACY, //PRIORITY_HIGH_ACCURACY,
-            CancellationTokenSource().token,
-        )
+//        fusedLocationProviderClient.getCurrentLocation(
+//            Priority.PRIORITY_BALANCED_POWER_ACCURACY, //PRIORITY_HIGH_ACCURACY,
+//            CancellationTokenSource().token,
+//        )
 
         return suspendCancellableCoroutine { cont ->
             fusedLocationProviderClient.lastLocation.apply {
@@ -137,7 +137,7 @@ class DefaultLocationTracker(
 
         if (!(hasAccessCoarseLocationPermission || hasAccessFineLocationPermission)) {
             Log.d("refugeDebug", "getCurrentLocationNow: A")
-            onGetCurrentLocationFailed(Exception("No location access permission has been granted to this app! Please address this in settings."))
+            onGetCurrentLocationFailed(Exception("No location access permission has been granted to this app! Please address this and try again."))
         }else if(!isGpsEnabled) {
             Log.d("refugeDebug", "getCurrentLocationNow: B")
             onGetCurrentLocationFailed(Exception("GPS is disabled on this device! Please enable it and try again."))

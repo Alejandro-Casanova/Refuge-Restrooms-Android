@@ -26,7 +26,7 @@ import java.io.IOException
 
 sealed interface ApiRequestState {
     data object Success : ApiRequestState
-    data object Error : ApiRequestState
+    data class Error(val errorMsg: String) : ApiRequestState
     data object Loading : ApiRequestState
 }
 
@@ -45,7 +45,8 @@ class RestroomsViewModel(
     val uiState: StateFlow<AppUiDataState> = _uiState.asStateFlow()
 
     var currentLocation by mutableStateOf<Location?>(null)
-    var locationRequestState: LocationRequestState by mutableStateOf(LocationRequestState.Loading)
+        private set
+    var locationRequestState: LocationRequestState by mutableStateOf(LocationRequestState.Success)
         private set
 
     fun getLastLocation() {
@@ -60,7 +61,9 @@ class RestroomsViewModel(
         }
     }
 
-    fun getCurrentLocation() {
+    fun getCurrentLocation(
+        onSuccess: (Location) -> Unit,
+    ) {
         locationRequestState = LocationRequestState.Loading
         locationTracker.getCurrentLocation(
             onGetCurrentLocationFailed = {
@@ -69,6 +72,7 @@ class RestroomsViewModel(
             onGetCurrentLocationSuccess = {
                 currentLocation = it
                 locationRequestState = LocationRequestState.Success
+                onSuccess(it)
             },
             priority = true
         )
@@ -99,10 +103,9 @@ class RestroomsViewModel(
 
     init {
         resetApp()
-        getRestrooms()
     }
 
-    private fun getRestrooms() {
+    fun getRestrooms() {
         viewModelScope.launch {
             apiRequestState = ApiRequestState.Loading
             apiRequestState = try {
@@ -110,9 +113,24 @@ class RestroomsViewModel(
                 setRestroomsList(listResult)
                 ApiRequestState.Success
             } catch (e: IOException) {
-                ApiRequestState.Error
+                ApiRequestState.Error(errorMsg = "IOException: ${e.message?:"Undefined"}")
             } catch (e: HttpException) {
-                ApiRequestState.Error
+                ApiRequestState.Error(errorMsg = "HTTP Error: ${e.message()}")
+            }
+        }
+    }
+
+    fun getRestroomsByLocation(latitude : Double, longitude: Double) {
+        viewModelScope.launch {
+            apiRequestState = ApiRequestState.Loading
+            apiRequestState = try {
+                val listResult = restroomsRepository.getRestroomsByLocation(latitude, longitude)
+                setRestroomsList(listResult)
+                ApiRequestState.Success
+            } catch (e: IOException) {
+                ApiRequestState.Error(errorMsg = "IOException: ${e.message?:"Undefined"}")
+            } catch (e: HttpException) {
+                ApiRequestState.Error(errorMsg = "HTTP Error: ${e.message()}")
             }
         }
     }

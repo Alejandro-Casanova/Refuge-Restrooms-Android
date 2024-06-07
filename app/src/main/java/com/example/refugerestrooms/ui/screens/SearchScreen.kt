@@ -1,11 +1,13 @@
 package com.example.refugerestrooms.ui.screens
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,8 +47,13 @@ import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.refugerestrooms.R
+import com.example.refugerestrooms.ui.LocationRequestState
+import com.example.refugerestrooms.ui.RestroomsViewModel
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 class SearchViewActivity  : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,9 +99,25 @@ fun EditSearchField(
     )
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun SearchScreen(modifier: Modifier = Modifier) {
+fun SearchScreen(
+    modifier: Modifier = Modifier,
+    onGetCurrentLocationSuccess: () -> Unit = {},
+    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
+) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
+
+    val currentLocation = restroomsViewModel.currentLocation
+    val locationRequestState = restroomsViewModel.locationRequestState
+
+    val locationPermissions = rememberMultiplePermissionsState(
+        permissions = listOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    )
+
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -105,7 +128,7 @@ fun SearchScreen(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Center
         ) {
 
-            Spacer(modifier = Modifier.weight(1.0f))
+            Spacer(modifier = Modifier.weight(0.8f))
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 4.dp
@@ -122,7 +145,7 @@ fun SearchScreen(modifier: Modifier = Modifier) {
                 )
             }
             Spacer(modifier = Modifier.weight(0.3f))
-            EditSearchField(
+            EditSearchField( // TODO request query to API
                 label = R.string.type_in_your_query,
                 leadingIcon = R.drawable.search_icon,
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -141,13 +164,53 @@ fun SearchScreen(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.displayMedium
             )
             //Spacer(modifier = Modifier.weight(0.10f))
+
             Button(
-                onClick = {  },
+                onClick = {
+                    if(!locationPermissions.allPermissionsGranted) {
+                        locationPermissions.launchMultiplePermissionRequest()
+                    }
+                    restroomsViewModel.getCurrentLocation(
+                        onSuccess = {
+                            onGetCurrentLocationSuccess()
+                            restroomsViewModel.getRestroomsByLocation(it.latitude, it.longitude)
+                        }
+                    )
+
+                },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Search near your location")
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Box(
+                contentAlignment = Alignment.TopCenter,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(top = 24.dp)
+            ) {
+                when (locationRequestState) {
+                    is LocationRequestState.Success -> {
+                        Unit
+                        //Text(text = "${currentLocation?.latitude ?: 0.0} ${currentLocation?.longitude ?: 0.0}")
+                    }
+
+                    is LocationRequestState.Error -> {
+                        ErrorScreen(
+                            displayText = locationRequestState.errorMsg,
+                            displayIcon = false
+                        )
+                        //Text(text = locationRequestState.errorMsg)
+                    }
+
+                    is LocationRequestState.Loading -> {
+                        LoadingScreen(displayText = "Fetching Location...")
+                        //Text(text = "Loading")
+                    }
+                }
+            }
+
+            //Spacer(modifier = Modifier.weight(1f))
 
         }
     }

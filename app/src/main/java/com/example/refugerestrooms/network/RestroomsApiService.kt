@@ -22,7 +22,7 @@ interface RestroomsApiService {
         @Query("offset") offset: Int = 0,
         @Query("ada") accessible: Boolean = false,
         @Query("unisex") unisex: Boolean = false,
-        @Query("lat") latitude: Float,
-        @Query("lng") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lng") longitude: Double,
     ): List<Restroom>
 }

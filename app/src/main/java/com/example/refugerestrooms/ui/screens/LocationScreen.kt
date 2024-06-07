@@ -22,7 +22,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @Composable
 fun LocationScreen(
     modifier: Modifier = Modifier,
-    restroomsViewModel: RestroomsViewModel = viewModel(),
+    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
 ) {
     val locationPermissions = rememberMultiplePermissionsState(
         permissions = listOf(
@@ -33,7 +33,7 @@ fun LocationScreen(
 
     LaunchedEffect(key1 = locationPermissions.allPermissionsGranted) {
         if (locationPermissions.allPermissionsGranted) {
-            restroomsViewModel.getCurrentLocation()
+            restroomsViewModel.getCurrentLocation(onSuccess = {})
         }
     }
 
@@ -45,7 +45,7 @@ fun LocationScreen(
         contentAlignment = Alignment.Center
     ) {
         AnimatedContent(
-            targetState = locationPermissions.allPermissionsGranted, label = ""
+            targetState = locationPermissions.allPermissionsGranted, label = "locationScreenAnimation"
         ) { areGranted ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +66,7 @@ fun LocationScreen(
                         }
                     }
                     Button(
-                        onClick = { restroomsViewModel.getCurrentLocation() }
+                        onClick = { restroomsViewModel.getCurrentLocation(onSuccess = {}) }
                     ) {
                         Text(text = "Get current location")
                     }

@@ -100,7 +100,7 @@ fun RefugeTopAppBar(modifier: Modifier = Modifier) {
 @Composable
 fun RestroomListScreen(
     modifier: Modifier = Modifier,
-    restroomsViewModel: RestroomsViewModel = viewModel(),
+    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
     lazyListContentPadding : PaddingValues = PaddingValues(0.dp)
 ) {
     val appUiState by restroomsViewModel.uiState.collectAsState()
@@ -108,6 +108,7 @@ fun RestroomListScreen(
 
     when (apiRequestState) {
         is ApiRequestState.Loading -> LoadingScreen(
+            displayText = "Fetching Restrooms...",
             modifier = modifier
                 .fillMaxSize()
                 .padding(lazyListContentPadding)
@@ -118,6 +119,7 @@ fun RestroomListScreen(
             contentPadding = lazyListContentPadding
         )
         is ApiRequestState.Error -> ErrorScreen(
+            displayText = apiRequestState.errorMsg,
             modifier = modifier
                 .fillMaxSize()
                 .padding(lazyListContentPadding)
@@ -450,34 +452,6 @@ fun RestroomList(
     //}
 }
 
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier,
-            color = MaterialTheme.colorScheme.secondary,
-            trackColor = MaterialTheme.colorScheme.surfaceVariant,
-        )
-    }
-}
-
-@Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
-        )
-        Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun ListViewPreview() {
@@ -500,32 +474,6 @@ fun ListViewPreviewDarkTheme() {
             color = MaterialTheme.colorScheme.background
         ) {
             RestroomListScreen()
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ErrorScreenPreview() {
-    RefugeRestroomsTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            ErrorScreen()
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoadingScreenPreview() {
-    RefugeRestroomsTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            LoadingScreen()
         }
     }
 }
