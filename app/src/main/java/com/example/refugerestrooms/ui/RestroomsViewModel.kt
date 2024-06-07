@@ -135,6 +135,21 @@ class RestroomsViewModel(
         }
     }
 
+    fun getRestroomsByQuery(query : String) {
+        viewModelScope.launch {
+            apiRequestState = ApiRequestState.Loading
+            apiRequestState = try {
+                val listResult = restroomsRepository.getRestroomsByQuery(query)
+                setRestroomsList(listResult)
+                ApiRequestState.Success
+            } catch (e: IOException) {
+                ApiRequestState.Error(errorMsg = "IOException: ${e.message?:"Undefined"}")
+            } catch (e: HttpException) {
+                ApiRequestState.Error(errorMsg = "HTTP Error: ${e.message()}")
+            }
+        }
+    }
+
     fun resetApp() {
         //_uiState.value = AppUiDataState(restroomsList = dummyDataSource.loadDummyRestrooms())
         _uiState.value = AppUiDataState()

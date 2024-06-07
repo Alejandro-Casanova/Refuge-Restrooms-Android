@@ -9,7 +9,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,7 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +54,7 @@ import com.example.refugerestrooms.model.Restroom
 import com.example.refugerestrooms.ui.ApiRequestState
 import com.example.refugerestrooms.ui.RestroomsViewModel
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
+import java.util.Locale
 import kotlin.math.round
 
 class ListViewActivity : ComponentActivity() {
@@ -192,6 +191,13 @@ private fun RestroomCardMainBody(
     distanceNumLinesToDisplay: Int = 1,
     addressNumLinesToDisplay: Int = 1,
 ) {
+
+    val distanceToRestroom = if(restroom.distance == null) {
+        "DistanceUnknown"
+    }else {
+        String.format(Locale.ENGLISH, stringResource(R.string.miles_away), restroom.distance)
+    }
+
     Column(
         modifier = modifier
     ) {
@@ -205,7 +211,7 @@ private fun RestroomCardMainBody(
         Text(
             overflow = TextOverflow.Ellipsis,
             maxLines = distanceNumLinesToDisplay,
-            text = "DistancePlaceHolder", // TODO
+            text = distanceToRestroom,
             modifier = Modifier,
             style = MaterialTheme.typography.labelSmall
         )
@@ -344,6 +350,17 @@ fun RestroomCardExtraInfo(
                     append("Up-Votes: ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
                         append(restroom.upVote.toString())
+                    }
+                },
+                style = MaterialTheme.typography.labelSmall
+            )
+        }
+        if(restroom.downVote != 0){
+            Text(
+                text = buildAnnotatedString {
+                    append("Down-Votes: ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
+                        append(restroom.downVote.toString())
                     }
                 },
                 style = MaterialTheme.typography.labelSmall

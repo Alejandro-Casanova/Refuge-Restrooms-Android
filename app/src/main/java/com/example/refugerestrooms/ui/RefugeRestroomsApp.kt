@@ -187,6 +187,11 @@ fun NavigationHost(
                         launchSingleTop = true
                     }
                 },
+                onQuerySearchButtonPressed = {
+                    navController.navigate(Screens.HomeScreens.List.route) {
+                        launchSingleTop = true
+                    }
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldInnerPadding)

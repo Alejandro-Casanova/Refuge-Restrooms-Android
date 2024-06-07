@@ -51,4 +51,7 @@ data class Restroom(
 
     val approved: Boolean,
 
+    val distance: Double? = null,
+    val bearing: String = ""
+
     )
