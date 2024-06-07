@@ -58,7 +58,7 @@ fun LocationScreen(
                         }
 
                         is LocationRequestState.Error -> {
-                            Text(text = "Error")
+                            Text(text = locationRequestState.errorMsg)
                         }
 
                         else -> {

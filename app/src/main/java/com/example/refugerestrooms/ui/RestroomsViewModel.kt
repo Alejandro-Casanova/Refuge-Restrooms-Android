@@ -32,7 +32,7 @@ sealed interface ApiRequestState {
 
 sealed interface LocationRequestState {
     data object Success : LocationRequestState
-    data object Error : LocationRequestState
+    data class Error(val errorMsg: String) : LocationRequestState
     data object Loading : LocationRequestState
 }
 
@@ -48,16 +48,30 @@ class RestroomsViewModel(
     var locationRequestState: LocationRequestState by mutableStateOf(LocationRequestState.Loading)
         private set
 
-    fun getCurrentLocation() {
+    fun getLastLocation() {
         viewModelScope.launch {
             locationRequestState = LocationRequestState.Loading
-            currentLocation = locationTracker.getCurrentLocation()
+            currentLocation = locationTracker.getLastLocation()
             locationRequestState = if(currentLocation != null) {
                 LocationRequestState.Success
             }else{
-                LocationRequestState.Error
+                LocationRequestState.Error("Could not get location!")
             }
         }
+    }
+
+    fun getCurrentLocation() {
+        locationRequestState = LocationRequestState.Loading
+        locationTracker.getCurrentLocation(
+            onGetCurrentLocationFailed = {
+                locationRequestState = LocationRequestState.Error(it.message?:"Could not get current location")
+            },
+            onGetCurrentLocationSuccess = {
+                currentLocation = it
+                locationRequestState = LocationRequestState.Success
+            },
+            priority = true
+        )
     }
 
     /** The mutable State that stores the status of the most recent request */
