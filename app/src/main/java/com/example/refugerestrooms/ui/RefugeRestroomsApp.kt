@@ -26,14 +26,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.navigation.BackPressHandler
 import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer
 import com.example.refugerestrooms.ui.navigation.TopBar
 import com.example.refugerestrooms.ui.screens.AboutScreen
-import com.example.refugerestrooms.ui.screens.LocationScreen
+import com.example.refugerestrooms.ui.screens.MapScreen
 import com.example.refugerestrooms.ui.screens.RestroomListScreen
+import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.screens.SearchScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 import kotlinx.coroutines.launch
@@ -173,7 +173,7 @@ fun NavigationHost(
             viewModel.setCurrentScreen(Screens.DrawerScreens.About)
             //Text(text="ABOUT TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
             AboutScreen(
-                modifier = Modifier,//.fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
             )
         }
         // SEARCH SCREEN
@@ -207,9 +207,16 @@ fun NavigationHost(
                 lazyListContentPadding = scaffoldInnerPadding
             )
         }
+        // MAP SCREEN
         composable(Screens.HomeScreens.Map.route) {
             viewModel.setCurrentScreen(Screens.HomeScreens.Map)
-            Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            MapScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding),
+                restroomsViewModel = viewModel
+            )
+            //Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
     }
 }

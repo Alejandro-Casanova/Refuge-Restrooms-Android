@@ -47,23 +47,6 @@ import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
-class SearchViewActivity  : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            RefugeRestroomsTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    SearchScreen()
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun EditSearchField(
     @StringRes label: Int,
@@ -103,7 +86,8 @@ fun SearchScreen(
 ) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    val currentLocation = restroomsViewModel.currentLocation
+//    val appUiState by restroomsViewModel.uiState.collectAsState()
+//    val currentLocation = appUiState.currentLocation
     val locationRequestState = restroomsViewModel.locationRequestState
 
     val locationPermissions = rememberMultiplePermissionsState(

@@ -44,16 +44,17 @@ class RestroomsViewModel(
     private val _uiState = MutableStateFlow(AppUiDataState())
     val uiState: StateFlow<AppUiDataState> = _uiState.asStateFlow()
 
-    var currentLocation by mutableStateOf<Location?>(null)
-        private set
+//    var currentLocation by mutableStateOf<Location?>(null)
+//        private set
     var locationRequestState: LocationRequestState by mutableStateOf(LocationRequestState.Success)
         private set
+
 
     fun getLastLocation() {
         viewModelScope.launch {
             locationRequestState = LocationRequestState.Loading
-            currentLocation = locationTracker.getLastLocation()
-            locationRequestState = if(currentLocation != null) {
+            updateLocation(locationTracker.getLastLocation())
+            locationRequestState = if(uiState.value.currentLocation != null) {
                 LocationRequestState.Success
             }else{
                 LocationRequestState.Error("Could not get location!")
@@ -70,7 +71,7 @@ class RestroomsViewModel(
                 locationRequestState = LocationRequestState.Error(it.message?:"Could not get current location")
             },
             onGetCurrentLocationSuccess = {
-                currentLocation = it
+                updateLocation(it)
                 locationRequestState = LocationRequestState.Success
                 onSuccess(it)
             },
@@ -97,6 +98,13 @@ class RestroomsViewModel(
     private fun setRestroomsList(list: List<Restroom>) {
         _uiState.update { currentState ->
             currentState.copy(restroomsList = list)
+        }
+        //_currentScreen.value = AppUiScreenState(screen)
+    }
+
+    private fun updateLocation(location: Location?) {
+        _uiState.update { currentState ->
+            currentState.copy(currentLocation = location)
         }
         //_currentScreen.value = AppUiScreenState(screen)
     }
