@@ -103,9 +103,8 @@ fun RestroomListScreen(
     lazyListContentPadding : PaddingValues = PaddingValues(0.dp)
 ) {
     val appUiState by restroomsViewModel.uiState.collectAsState()
-    val apiRequestState = restroomsViewModel.apiRequestState
 
-    when (apiRequestState) {
+    when (val apiRequestState = restroomsViewModel.apiRequestState) {
         is ApiRequestState.Loading -> LoadingScreen(
             displayText = "Fetching Restrooms...",
             modifier = modifier

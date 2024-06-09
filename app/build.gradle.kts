@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.22"
+
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -66,6 +69,17 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
+
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+
+    // FirebaseUI, Database and Play Services Auth
+//    implementation(libs.firebase.ui.auth)
+//    implementation(libs.play.services.auth)
+//    implementation(libs.firebase.database.ktx)
+    implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation ("com.google.android.gms:play-services-auth:20.5.0") //required by email/passwd auth
+    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
 
     // Retrofit
     implementation(libs.retrofit)

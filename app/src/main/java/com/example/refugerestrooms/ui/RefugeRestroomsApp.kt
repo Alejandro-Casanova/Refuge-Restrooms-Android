@@ -26,13 +26,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.refugerestrooms.firebase.screens.AuthScreen
+import com.example.refugerestrooms.firebase.screens.DatabaseScreen
+import com.example.refugerestrooms.firebase.screens.MainViewModel
 import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.navigation.BackPressHandler
 import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer
 import com.example.refugerestrooms.ui.navigation.TopBar
 import com.example.refugerestrooms.ui.screens.AboutScreen
-import com.example.refugerestrooms.ui.screens.LocationScreen
 import com.example.refugerestrooms.ui.screens.RestroomListScreen
 import com.example.refugerestrooms.ui.screens.SearchScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
@@ -40,6 +42,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RefugeRestroomsApp(
+    authViewModel: MainViewModel = viewModel(),
     restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
 ) {
     val navController = rememberNavController()
@@ -138,7 +141,8 @@ fun RefugeRestroomsApp(
         NavigationHost(
             navController = navController,
             viewModel = restroomsViewModel,
-            scaffoldInnerPadding = innerPadding
+            scaffoldInnerPadding = innerPadding,
+            authViewModel = authViewModel,
         )
     }
 
@@ -148,6 +152,7 @@ fun RefugeRestroomsApp(
 fun NavigationHost(
     navController: NavController,
     viewModel: RestroomsViewModel,
+    authViewModel: MainViewModel,
     //modifier : Modifier = Modifier,
     scaffoldInnerPadding : PaddingValues = PaddingValues(0.dp)
 ) {
@@ -163,6 +168,23 @@ fun NavigationHost(
 //                    .fillMaxSize()
 //                    .padding(scaffoldInnerPadding))
             Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+        }
+        composable(Screens.DrawerScreens.FireBaseAuth.route) {
+            viewModel.setCurrentScreen(Screens.DrawerScreens.FireBaseAuth)
+            //Text(text="FIREBASE AUTH TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            AuthScreen(
+                modifier = Modifier.fillMaxSize(),
+                authViewModel = authViewModel,
+            )
+        }
+        composable(Screens.DrawerScreens.FireBaseStore.route) {
+            viewModel.setCurrentScreen(Screens.DrawerScreens.FireBaseStore)
+            //Text(text="FIREBASE STORE TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            DatabaseScreen(
+                modifier = Modifier.fillMaxSize(),
+                restroomsViewModel = viewModel,
+                authViewModel = authViewModel,
+            )
         }
         composable(Screens.DrawerScreens.Settings.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Settings)

@@ -18,6 +18,8 @@
     <string name="map_view">Map View</string>
     <string name="settings">Settings</string>
     <string name="loading_failed">Connection Failed</string>
-    <string name="fetching">Fetching...</string>
+    <string name="fetching">Fetching…</string>
     <string name="miles_away">%.3f miles away</string>
+    <string name="firebase_auth">Firebase Authentication</string>
+    <string name="firebase_store">Firebase Storage</string>
 </resources>

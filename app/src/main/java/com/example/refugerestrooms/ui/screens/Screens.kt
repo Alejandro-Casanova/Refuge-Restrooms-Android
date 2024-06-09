@@ -4,9 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.ViewList
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.refugerestrooms.R
@@ -81,6 +83,16 @@ sealed class Screens(
             title = R.string.home,
             icon = Icons.Filled.Home
         )
+        data object FireBaseAuth : DrawerScreens(
+            route = "FIREBASE_AUTH",
+            title = R.string.firebase_auth,
+            icon = Icons.Filled.Key
+        )
+        data object FireBaseStore : DrawerScreens(
+            route = "FIREBASE_STORE",
+            title = R.string.firebase_store,
+            icon = Icons.Filled.Storage
+        )
         data object Settings : DrawerScreens(
             route = "SETTINGS",
             title = R.string.settings,
@@ -102,6 +114,8 @@ val screensInHomeFromBottomNav = listOf(
 
 val screensFromDrawer = listOf(
     Screens.DrawerScreens.Home,
+    Screens.DrawerScreens.FireBaseAuth,
+    Screens.DrawerScreens.FireBaseStore,
     Screens.DrawerScreens.Settings,
     Screens.DrawerScreens.About
 )
