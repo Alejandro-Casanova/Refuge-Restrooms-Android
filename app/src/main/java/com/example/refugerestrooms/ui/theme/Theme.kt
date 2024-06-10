@@ -217,18 +217,19 @@ private val darkScheme = darkColorScheme(
 
 @Composable
 fun RefugeRestroomsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean? = null,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val darkThemeValue = darkTheme?: isSystemInDarkTheme()
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (darkThemeValue) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkScheme
+        darkThemeValue -> darkScheme
         else -> lightScheme
     }
     val view = LocalView.current
@@ -237,7 +238,7 @@ fun RefugeRestroomsTheme(
 //            val window = (view.context as Activity).window
 //            window.statusBarColor = colorScheme.primary.toArgb()
 //            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-            setUpEdgeToEdge(view, darkTheme)
+            setUpEdgeToEdge(view, darkThemeValue)
         }
     }
 

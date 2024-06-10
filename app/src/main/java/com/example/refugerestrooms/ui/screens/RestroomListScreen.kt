@@ -99,12 +99,18 @@ fun RefugeTopAppBar(modifier: Modifier = Modifier) {
 @Composable
 fun RestroomListScreen(
     modifier: Modifier = Modifier,
-    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
+    restroomsViewModel: RestroomsViewModel,
     lazyListContentPadding : PaddingValues = PaddingValues(0.dp)
 ) {
     val appUiState by restroomsViewModel.uiState.collectAsState()
-
     when (val apiRequestState = restroomsViewModel.apiRequestState) {
+        is ApiRequestState.Standby -> ErrorScreen(
+            displayText = stringResource(R.string.no_search_query),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(lazyListContentPadding),
+            drawableResource = R.drawable.info_error_red_transp_small
+        )
         is ApiRequestState.Loading -> LoadingScreen(
             displayText = "Fetching Restrooms...",
             modifier = modifier

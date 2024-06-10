@@ -89,6 +89,15 @@ dependencies {
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
 
+    // OpenStreetMap for Android
+    implementation(libs.osmdroid.android)
+    //implementation (libs.osm.androd.compose)
+    //implementation("tech.utsmankece:osm-android-compose:0.0.5")
+    implementation(libs.utsmankece.osm.android.compose)
+
+    // Datastore Preferences
+    implementation(libs.androidx.datastore.preferences)
+
     // Google play services
     implementation(libs.play.services.location)
 

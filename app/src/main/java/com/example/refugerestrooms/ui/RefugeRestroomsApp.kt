@@ -35,15 +35,18 @@ import com.example.refugerestrooms.ui.navigation.BottomBar
 import com.example.refugerestrooms.ui.navigation.Drawer
 import com.example.refugerestrooms.ui.navigation.TopBar
 import com.example.refugerestrooms.ui.screens.AboutScreen
+import com.example.refugerestrooms.ui.screens.MapScreen
 import com.example.refugerestrooms.ui.screens.RestroomListScreen
+import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.screens.SearchScreen
+import com.example.refugerestrooms.ui.screens.SettingsScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun RefugeRestroomsApp(
     authViewModel: MainViewModel = viewModel(),
-    restroomsViewModel: RestroomsViewModel = viewModel(factory = RestroomsViewModel.Factory),
+    restroomsViewModel: RestroomsViewModel,
 ) {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
@@ -51,6 +54,7 @@ fun RefugeRestroomsApp(
 
     val uiState by restroomsViewModel.uiState.collectAsState()
     val currentScreen = uiState.currentScreen
+    val darkTheme = restroomsViewModel.uiPreferenceState.collectAsState().value.darkThemeOverride
 
     if (scaffoldState.drawerState.isOpen) {
         BackPressHandler (onBackPressed = {
@@ -120,30 +124,59 @@ fun RefugeRestroomsApp(
             topBar()
         },
         bottomBar = {
-            bottomBar()
+            RefugeRestroomsTheme(darkTheme = true) {
+                Surface(
+                    modifier = Modifier,
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    bottomBar()
+                }
+            }
         },
         scaffoldState = scaffoldState,
         drawerContent = {
-            Drawer(onDestinationClicked =  { screen ->
-                scope.launch {
-                    scaffoldState.drawerState.close()
+            RefugeRestroomsTheme(darkTheme = darkTheme) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Drawer(onDestinationClicked = { screen ->
+                        scope.launch {
+                            scaffoldState.drawerState.close()
+                        }
+                        val ret = navController.popBackStack(
+                            Screens.DrawerScreens.Home.route,
+                            inclusive = false
+                        )
+                        Log.d("NAVIGATION_DEBUG_2", ret.toString())
+                        navController.navigate(screen.route) {
+                            launchSingleTop = true
+                        }
+                        //appViewModel.setCurrentScreen(screen)
+                    })
                 }
-                val ret = navController.popBackStack(Screens.DrawerScreens.Home.route, inclusive = false)
-                Log.d("NAVIGATION_DEBUG_2", ret.toString())
-                navController.navigate(screen.route) {
-                    launchSingleTop = true
-                }
-                //appViewModel.setCurrentScreen(screen)
-            })
+            }
         },
         drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
     ) { innerPadding ->
-        NavigationHost(
-            navController = navController,
-            viewModel = restroomsViewModel,
-            scaffoldInnerPadding = innerPadding,
-            authViewModel = authViewModel,
-        )
+        RefugeRestroomsTheme(darkTheme = darkTheme) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                NavigationHost(
+                    navController = navController,
+                    viewModel = restroomsViewModel,
+                    scaffoldInnerPadding = innerPadding,
+                    authViewModel = authViewModel,
+                )
+            }
+        }
+//        NavigationHost(
+//            navController = navController,
+//            viewModel = restroomsViewModel,
+//            scaffoldInnerPadding = innerPadding
+//       )
     }
 
 }
@@ -169,6 +202,7 @@ fun NavigationHost(
 //                    .padding(scaffoldInnerPadding))
             Text(text="HOME TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
+        // SETTINGS SCREEN
         composable(Screens.DrawerScreens.FireBaseAuth.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.FireBaseAuth)
             //Text(text="FIREBASE AUTH TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
@@ -188,14 +222,22 @@ fun NavigationHost(
         }
         composable(Screens.DrawerScreens.Settings.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.Settings)
-            Text(text="SETTINGS TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            SettingsScreen(
+                restroomsViewModel = viewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding)
+            )
+            //Text(text="SETTINGS TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
         // ABOUT SCREEN
         composable(Screens.DrawerScreens.About.route) {
             viewModel.setCurrentScreen(Screens.DrawerScreens.About)
             //Text(text="ABOUT TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
             AboutScreen(
-                modifier = Modifier,//.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding),
             )
         }
         // SEARCH SCREEN
@@ -229,9 +271,16 @@ fun NavigationHost(
                 lazyListContentPadding = scaffoldInnerPadding
             )
         }
+        // MAP SCREEN
         composable(Screens.HomeScreens.Map.route) {
             viewModel.setCurrentScreen(Screens.HomeScreens.Map)
-            Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
+            MapScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldInnerPadding),
+                restroomsViewModel = viewModel
+            )
+            //Text(text="MAP TEST", style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxSize())
         }
     }
 }
@@ -244,7 +293,7 @@ fun AppScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RefugeRestroomsApp()
+            RefugeRestroomsApp(viewModel())
         }
     }
 }
@@ -257,7 +306,7 @@ fun AppScreenPreviewDarkTheme() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RefugeRestroomsApp()
+            RefugeRestroomsApp(viewModel())
         }
     }
 }

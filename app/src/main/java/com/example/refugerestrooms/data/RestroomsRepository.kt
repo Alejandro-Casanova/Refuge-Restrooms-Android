@@ -20,14 +20,14 @@ class NetworkRestroomsRepository(
         return restroomApiService.getRestroomsByLocation(
             latitude = latitude,
             longitude = longitude,
-            perPage = 20 // TODO: handle progressive requesting of new restrooms as list is scrolled
+            perPage = 10 // TODO: handle progressive requesting of new restrooms as list is scrolled
         )
     }
 
     override suspend fun getRestroomsByQuery(query: String): List<Restroom> {
         return restroomApiService.getRestroomsByQuery(
             query = query,
-            perPage = 20 // TODO: handle progressive requesting of new restrooms as list is scrolled
+            perPage = 10 // TODO: handle progressive requesting of new restrooms as list is scrolled
         )
     }
 }

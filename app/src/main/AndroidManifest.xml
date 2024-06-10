@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,16 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RefugeRestrooms"
         tools:targetApi="31" >
-        <activity
-            android:name=".ui.screens.ListViewActivity"
-            android:exported="true"
-            android:label="@string/title_activity_list_view"
-            android:theme="@style/Theme.RefugeRestrooms" />
-        <activity
-            android:name=".ui.screens.SearchViewActivity"
-            android:exported="true"
-            android:label="@string/title_activity_search_view"
-            android:theme="@style/Theme.RefugeRestrooms" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
