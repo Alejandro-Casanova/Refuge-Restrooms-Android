@@ -119,7 +119,7 @@ fun RefugeRestroomsApp(
             topBar()
         },
         bottomBar = {
-            RefugeRestroomsTheme(darkTheme = darkTheme) {
+            RefugeRestroomsTheme(darkTheme = true) {
                 Surface(
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.background
