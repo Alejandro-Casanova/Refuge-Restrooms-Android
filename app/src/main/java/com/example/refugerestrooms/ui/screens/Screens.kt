@@ -77,7 +77,7 @@ sealed class Screens(
         icon: ImageVector
     ) : Screens(route, title, icon) {
         data object Home : DrawerScreens(
-            route = "HOME",
+            route = "SEARCH",//"HOME", // REMOVED HOME SCREEN
             title = R.string.home,
             icon = Icons.Filled.Home
         )
