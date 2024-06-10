@@ -18,3 +18,17 @@ data class AppUiDataState (
 //        title = R.string.search,
 //        icon = Icons.Filled.Search
 //)
+
+/*
+ * Data class containing various UI States
+ */
+data class PreferencesUiState(
+    val isThemeSameAsSystem: Boolean = true,
+    val isManualDarkThemeOn: Boolean = false,
+    val darkThemeOverride: Boolean? = if(isThemeSameAsSystem){
+        null
+    }else{
+        isManualDarkThemeOn
+    }
+)
+
