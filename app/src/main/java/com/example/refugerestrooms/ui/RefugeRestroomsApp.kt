@@ -37,7 +37,6 @@ import com.example.refugerestrooms.ui.navigation.TopBar
 import com.example.refugerestrooms.ui.screens.AboutScreen
 import com.example.refugerestrooms.ui.screens.MapScreen
 import com.example.refugerestrooms.ui.screens.RestroomListScreen
-import com.example.refugerestrooms.ui.screens.Screens
 import com.example.refugerestrooms.ui.screens.SearchScreen
 import com.example.refugerestrooms.ui.screens.SettingsScreen
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
@@ -293,7 +292,7 @@ fun AppScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RefugeRestroomsApp(viewModel())
+            RefugeRestroomsApp(viewModel(), viewModel())
         }
     }
 }
@@ -306,7 +305,7 @@ fun AppScreenPreviewDarkTheme() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RefugeRestroomsApp(viewModel())
+            RefugeRestroomsApp(viewModel(), viewModel())
         }
     }
 }

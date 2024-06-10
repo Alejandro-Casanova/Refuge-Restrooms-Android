@@ -1,9 +1,5 @@
 package com.example.refugerestrooms.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -18,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
@@ -34,16 +29,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,21 +47,6 @@ import com.example.refugerestrooms.ui.ApiRequestState
 import com.example.refugerestrooms.ui.RestroomsViewModel
 import com.example.refugerestrooms.ui.theme.RefugeRestroomsTheme
 import java.util.Locale
-import kotlin.math.round
-
-class ListViewActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            RefugeRestroomsTheme {
-                RestroomListScreen(
-                    modifier = Modifier
-                )
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -151,44 +128,6 @@ fun RestroomListScreen(
 //}
 
 @Composable
-private fun RestroomRatingBanner(
-    modifier: Modifier = Modifier,
-    rating : Int? = R.integer.restroom_rating_1,
-) {
-    //val rating : Int? = if(ratingInt == null) null else integerResource(ratingInt)
-    val message : String = when {
-        rating == null -> "No Rating"
-        else -> "${rating}% positive"
-    }
-    val color : Color = when{
-        rating == null -> colorResource(R.color.purple_500)
-        rating < 50 -> colorResource(R.color.red_rating)
-        rating < 80 -> colorResource(R.color.orange_rating)
-        else -> colorResource(R.color.green_rating)
-    }
-    ElevatedCard(
-        colors = CardDefaults.cardColors(
-            containerColor = color,
-        ),
-        shape = RoundedCornerShape(12.dp),
-        //border = BorderStroke(1.dp, Color.Black),
-        modifier = modifier
-            //.size(width = 240.dp, height = 100.dp)
-    ) {
-        Text(
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            text = message,
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            modifier = Modifier
-                .padding(8.dp),
-            //style = MaterialTheme.typography.labelSmall
-        )
-    }
-}
-
-@Composable
 private fun RestroomCardMainBody(
     restroom: Restroom,
     modifier: Modifier = Modifier,
@@ -228,16 +167,6 @@ private fun RestroomCardMainBody(
             style = MaterialTheme.typography.bodyLarge
         )
     }
-}
-
-fun calculateRating(upVotes: Int, downVotes: Int): Int? {
-    val total = upVotes + downVotes
-    val result: Int? = when{
-        total == 0 -> null
-        downVotes == 0 -> 100
-        else -> round((upVotes.toFloat() / total) * 100.0f).toInt()
-    }
-    return result
 }
 
 @Composable
@@ -482,7 +411,7 @@ fun ListViewPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestroomListScreen()
+            RestroomListScreen(viewModel(), viewModel())
         }
     }
 }
@@ -495,7 +424,7 @@ fun ListViewPreviewDarkTheme() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestroomListScreen()
+            RestroomListScreen(viewModel(), viewModel())
         }
     }
 }
