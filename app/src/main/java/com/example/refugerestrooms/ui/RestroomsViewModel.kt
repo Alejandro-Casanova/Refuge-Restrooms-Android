@@ -25,6 +25,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface ApiRequestState {
+    data object Standby : ApiRequestState
     data object Success : ApiRequestState
     data class Error(val errorMsg: String) : ApiRequestState
     data object Loading : ApiRequestState
@@ -80,7 +81,7 @@ class RestroomsViewModel(
     }
 
     /** The mutable State that stores the status of the most recent request */
-    var apiRequestState: ApiRequestState by mutableStateOf(ApiRequestState.Loading)
+    var apiRequestState: ApiRequestState by mutableStateOf(ApiRequestState.Standby)
         private set
 
     private val dummyDataSource = DummyDataSource() // Just for testing

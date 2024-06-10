@@ -1,5 +1,6 @@
 package com.example.refugerestrooms.ui.screens
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,6 +57,7 @@ fun ErrorScreen(
     modifier: Modifier = Modifier,
     displayIcon: Boolean = true,
     displayText: String = stringResource(R.string.loading_failed),
+    @DrawableRes drawableResource: Int = R.drawable.ic_connection_error,
 ) {
     Column(
         modifier = modifier,
@@ -65,7 +67,7 @@ fun ErrorScreen(
         if(displayIcon) {
             Image(
                 contentScale = ContentScale.Crop,
-                painter = painterResource(id = R.drawable.ic_connection_error),
+                painter = painterResource(drawableResource),
                 contentDescription = ""
             )
         }
