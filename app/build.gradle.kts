@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.22"
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
 }
 
 android {
@@ -80,6 +81,11 @@ dependencies {
     //implementation (libs.osm.androd.compose)
     //implementation("tech.utsmankece:osm-android-compose:0.0.5")
     implementation(libs.utsmankece.osm.android.compose)
+
+    //Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // Google play services
     implementation(libs.play.services.location)
