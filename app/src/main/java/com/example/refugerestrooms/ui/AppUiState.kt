@@ -25,5 +25,10 @@ data class AppUiDataState (
 data class PreferencesUiState(
     val isThemeSameAsSystem: Boolean = true,
     val isManualDarkThemeOn: Boolean = false,
+    val darkThemeOverride: Boolean? = if(isThemeSameAsSystem){
+        null
+    }else{
+        isManualDarkThemeOn
+    }
 )
 
