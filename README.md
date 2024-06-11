@@ -60,10 +60,9 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
     - [ ] Have filter options for only returning accessible, unisex restrooms
 - [] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
 
+## [Video Demo](https://youtu.be/-619bC9_QJU)
+
 ## Screenshots
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen1.png?raw=true)
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen2.png?raw=true)
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen3.png?raw=true)
-
-## Video Demo
-
