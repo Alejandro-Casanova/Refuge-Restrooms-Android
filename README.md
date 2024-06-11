@@ -63,6 +63,6 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 ## [Video Demo](https://youtu.be/-619bC9_QJU)
 
 ## Screenshots
-![](/app/src/main/res/drawable-xxhdpi/Screenshots/screen1.png?raw=true)
-![](/app/src/main/res/drawable-xxhdpi/Screenshots/screen2.png?raw=true)
-![](/app/src/main/res/drawable-xxhdpi/Screenshots/screen3.png?raw=true)
+<img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen1.png" alt="drawing" width="200"/>
+<img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen2.png" alt="drawing" width="200"/>
+<img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen3.png" alt="drawing" width="197"/>
