@@ -64,6 +64,6 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen1.png?raw=true)
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen2.png?raw=true)
 ![](/app/src/main/res/drawable-hdpi/Screenshots/screen3.png?raw=true)
-![](/app/src/main/res/drawable-hdpi/Screenshots/screen4.png?raw=true)
-![](/app/src/main/res/drawable-hdpi/Screenshots/screen5.png?raw=true)
-![](/app/src/main/res/drawable-hdpi/Screenshots/screen6.png?raw=true)
+
+## Video Demo
+
