@@ -19,9 +19,9 @@ Please try to stick to the Android Kotlin [coding guidelines](https://kotlinlang
 
 If you push code, please make sure it builds correctly. Feel free to use pull requests so that other contributors can check your code. Also create an issue when working on a new feature so we don't duplicate work!
 
-## Links to Refuge project on other platforms
+## Links to Refuge Restrooms project on other platforms
 
-- [Main proyect Web App](https://github.com/RefugeRestrooms/refugerestrooms)
+- [Main project Web App](https://github.com/RefugeRestrooms/refugerestrooms)
 - [SMS messaging Twilio Application](https://github.com/RefugeRestrooms/refugerest_sms)
 - [Android Native Application (Java)](https://github.com/RefugeRestrooms/refugerestrooms-android)
 - [iOS Native Application](https://github.com/RefugeRestrooms/refuge-ios)
@@ -47,7 +47,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 
 ## TODO
 - [ ] Create "add bathroom" section
-- [ ] Add links in "about" screen to GitHub, original proyect page, pateron...
+- [ ] Add links in "about" screen to GitHub, original project page, pateron...
 - [x] Detailed info list window
     - [ ] Allow edit suggestions on restrooms like in web app
     - [ ] Allow users to rate and report bathrooms
