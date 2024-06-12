@@ -47,6 +47,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 
 ## TODO
 - [ ] Create "add bathroom" section
+- [ ] Upgrade Scaffold and Buttom Navigation Bar components to Material 3. Current versions are not compatible with Material 3 theming. Quick fix was done calling the theme wrapper around the faulty components. 
 - [ ] Add links in "about" screen to GitHub, original project page, pateron...
 - [x] Detailed info list window
     - [ ] Allow edit suggestions on restrooms like in web app
@@ -58,7 +59,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
     - [ ] Search by address option -- need to translate address to lat/lng. Query search just filters by name, and seems to overload the API server, so timeout often occurs before response is received
     - [ ] Auto-complete search?
     - [ ] Have filter options for only returning accessible, unisex restrooms
-- [] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
+- [ ] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
 
 ## [Video Demo](https://youtu.be/-619bC9_QJU)
 
