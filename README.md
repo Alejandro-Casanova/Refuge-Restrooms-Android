@@ -60,7 +60,11 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
     - [ ] Have filter options for only returning accessible, unisex restrooms
 - [] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
 
-## [Video Demo](https://youtu.be/-619bC9_QJU)
+## Video Demo
+[![Watch the video](https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg)](https://youtu.be/-619bC9_QJU)
+
+<!-- [<img src="https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg" width=400
+/>](https://youtu.be/-619bC9_QJU) -->
 
 ## Screenshots
 <p float="left">
