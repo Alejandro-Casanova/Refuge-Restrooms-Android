@@ -42,7 +42,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 * Retrofit
 * Kotlin-serialization
 * OpenStreetMap [(osmdroid)](https://github.com/osmdroid/osmdroid)
-* [OpenStreetFor Android Compose](https://utsmannn.github.io/osm-android-compose/)
+* [OpenStreetMap for Android Compose](https://utsmannn.github.io/osm-android-compose/)
 * Preferences DataStore
 
 ## TODO
