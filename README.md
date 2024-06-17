@@ -19,9 +19,9 @@ Please try to stick to the Android Kotlin [coding guidelines](https://kotlinlang
 
 If you push code, please make sure it builds correctly. Feel free to use pull requests so that other contributors can check your code. Also create an issue when working on a new feature so we don't duplicate work!
 
-## Links to Refuge project on other platforms
+## Links to Refuge Restrooms project on other platforms
 
-- [Main proyect Web App](https://github.com/RefugeRestrooms/refugerestrooms)
+- [Main project Web App](https://github.com/RefugeRestrooms/refugerestrooms)
 - [SMS messaging Twilio Application](https://github.com/RefugeRestrooms/refugerest_sms)
 - [Android Native Application (Java)](https://github.com/RefugeRestrooms/refugerestrooms-android)
 - [iOS Native Application](https://github.com/RefugeRestrooms/refuge-ios)
@@ -42,12 +42,13 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 * Retrofit
 * Kotlin-serialization
 * OpenStreetMap [(osmdroid)](https://github.com/osmdroid/osmdroid)
-* [OpenStreetFor Android Compose](https://utsmannn.github.io/osm-android-compose/)
+* [OpenStreetMap for Android Compose](https://utsmannn.github.io/osm-android-compose/)
 * Preferences DataStore
 
 ## TODO
 - [ ] Create "add bathroom" section
-- [ ] Add links in "about" screen to GitHub, original proyect page, pateron...
+- [ ] Upgrade Scaffold and Buttom Navigation Bar components to Material 3. Current versions are not compatible with Material 3 theming. Quick fix was done calling the theme wrapper around the faulty components. 
+- [ ] Add links in "about" screen to GitHub, original project page, pateron...
 - [x] Detailed info list window
     - [ ] Allow edit suggestions on restrooms like in web app
     - [ ] Allow users to rate and report bathrooms
@@ -58,7 +59,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
     - [ ] Search by address option -- need to translate address to lat/lng. Query search just filters by name, and seems to overload the API server, so timeout often occurs before response is received
     - [ ] Auto-complete search?
     - [ ] Have filter options for only returning accessible, unisex restrooms
-- [] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
+- [ ] Add dynamic list scrolling (as you reach the end of the list, more restrooms are requested to the API and appended to the list when received)
 
 ## Video Demo
 [![Watch the video](https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg)](https://youtu.be/-619bC9_QJU)
