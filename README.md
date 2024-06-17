@@ -70,7 +70,7 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 </p>
 
 ## Screenshots
-<p float="left">
+<p align="center">
     <img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen1.png" alt="drawing" width="200"/>
     <img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen2.png" alt="drawing" width="200"/>
     <img src="app/src/main/res/drawable-xxhdpi/Screenshots/screen3.png" alt="drawing" width="197"/>
