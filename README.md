@@ -64,6 +64,8 @@ If you push code, please make sure it builds correctly. Feel free to use pull re
 ## Video Demo
 [![Watch the video](https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg)](https://youtu.be/-619bC9_QJU)
 
+<a href="https://youtu.be/-619bC9_QJU" target="_blank" title="Go to the Gowebly CLI website"><img width="100%" alt="gowebly create command" src="https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg"></a>
+
 <!-- [<img src="https://i.ytimg.com/an_webp/-619bC9_QJU/mqdefault_6s.webp?du=3000&sqp=CKDuv7MG&rs=AOn4CLDix6nQI7kYbEslxDmGQtnVQSJ8Jg" width=400
 />](https://youtu.be/-619bC9_QJU) -->
 
